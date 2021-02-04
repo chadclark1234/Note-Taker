@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 // const uuid = require("uuid");
 const noteData = require("../db/db.json");
 
@@ -12,7 +13,12 @@ module.exports = (app) => {
 
   // RETRIEVE NOTE BY ID \\
   app.post("/api/notes", (req, res) => {
-    console.log(req.body);
+    const newNote = req.body;
+    const recallArr = JSON.parse(fs.readFileSync("db/db.json"));
+    recallArr.push(newNote);
+    console.log(newNote);
+    console.log(recallArr);
+    fs.writeFileSync("db/db.json", JSON.stringify(recallArr));
     // res.json(waitListData);
   });
 
