@@ -7,7 +7,7 @@ module.exports = (app) => {
   // GRAB NOTES AND DISPLAY ON PAGE \\
   app.get("/api/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "../db/db.json"));
-    console.log("hello");
+    // console.log("hello");
     // res.json(tableData);
   });
 
@@ -18,16 +18,27 @@ module.exports = (app) => {
     const recallArr = JSON.parse(fs.readFileSync("db/db.json"));
     recallArr.push(newNote);
     console.log(newNote);
-    console.log(recallArr);
+    // console.log(recallArr);
     fs.writeFileSync("db/db.json", JSON.stringify(recallArr));
     res.json(newNote);
   });
 
   // DELETE NOTE BY ID \\
   app.delete("/api/notes:id", (req, res) => {
-    console.log("delete note");
-    // if (tableData.length < 5) {
-    //   tableData.push(req.body);
-    //   res.json(true);
+    const notes = JSON.parse(fs.readFileSync("db/db.json"));
+
+    // const deletedNote = notes.filter(
+    //   (removeNote) => removeNote.id != req.params.id
+    // );
+    // fs.writeFileSync("db/db.json", JSON.stringify(deletedNote));
+
+    for (let i = 0; i < notes.length; i++)
+      if (notes[i].id === req.params.id) {
+        let removedNote = notes.splice([i], 1);
+        console.log(notes);
+        fs.writeFileSync("db/db.json", JSON.stringify(notes));
+        res.json(true);
+      }
+    // res.json(newNotesArr);
   });
 };
