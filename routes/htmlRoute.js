@@ -6,7 +6,7 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
-  // DISPLAY NOTE PAGE WHEN CLICK \\
+  // DISPLAY ENTER NOTE PAGE WHEN CLICK \\
   app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/notes.html"));
   });

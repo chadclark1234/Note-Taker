@@ -3,14 +3,14 @@ const path = require("path");
 const fs = require("fs");
 const app = express();
 
-// const importData = require("./db/db.json");
-
 let PORT = process.env.PORT || 3001;
 
+// ALLOWS ACCESS TO STATIC FOLDER \\
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// ALLOWS ACCESS TO PAGES \\
 require("./routes/apiRoute")(app);
 require("./routes/htmlRoute")(app);
 
